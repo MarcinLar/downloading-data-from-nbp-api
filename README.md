@@ -7,7 +7,7 @@ Tabela a
 Tabela b
 Tabela c
 
-##Dostępny zakres dat:
+## Dostępny zakres dat:
 Data minimalna: 2 stycznia 2002
 Data maksymalna: Dzisiaj
 
