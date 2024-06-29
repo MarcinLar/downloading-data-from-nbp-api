@@ -1,4 +1,4 @@
-# downloading-data-from-nbp-api-
+# downloading-data-from-nbp-api
 Pobieranie tabel kursów walut z Api NBP
 Dokumentacja Api NBP: https://api.nbp.pl/
 
