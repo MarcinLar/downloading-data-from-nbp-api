@@ -113,42 +113,47 @@ const oneDay = 1*24*60*60*1000
             option - Wybrana opcja (a, b, lub c).
             processedData - Tablica przetworzonych danych.
          */
-        function processData(data, option) {
-            const processedData = [];
-        
-            data.forEach(entry => {
-                const effectiveDate = entry.effectiveDate;
-        
-                entry.rates.forEach(rate => {
-                    const currencyCode = rate.code;
-                    const currencyName = rate.country || rate.currency;
-        
-                    let value;
-                    if (option === 'c') {
-                        // Formatowanie danych dla tabeli typu 'c'
-                        value = {
-                            code: currencyCode,
-                            currency: currencyName,
-                            ask: rate.ask,
-                            bid: rate.bid,
-                            effectiveDate: effectiveDate
-                        };
-                    } else {
-                        // Formatowanie danych dla tabeli typu 'a' lub 'b'
-                        value = {
-                            code: currencyCode,
-                            currency: currencyName,
-                            mid: rate.mid,
-                            effectiveDate: effectiveDate
-                        };
-                    }
-        
-                    processedData.push(value);
-                });
-            });
-        
-            return processedData;
-        }
+         function processData(data, option) {
+    const processedData = [];
+
+    data.forEach(entry => {
+        const effectiveDate = entry.effectiveDate;
+
+        entry.rates.forEach(rate => {
+            const currencyCode = rate.code;
+            const currencyName = rate.country || rate.currency;
+
+            // Pomijanie obiektów z kodem EEK i walutą korona estońska
+            if (currencyCode === 'EEK') {
+                return;
+            }
+
+            let value;
+            if (option === 'c') {
+                // Formatowanie danych dla tabeli typu 'c'
+                value = {
+                    code: currencyCode,
+                    currency: currencyName,
+                    ask: rate.ask,
+                    bid: rate.bid,
+                    effectiveDate: effectiveDate
+                };
+            } else {
+                // Formatowanie danych dla tabeli typu 'a' lub 'b'
+                value = {
+                    code: currencyCode,
+                    currency: currencyName,
+                    mid: rate.mid,
+                    effectiveDate: effectiveDate
+                };
+            }
+
+            processedData.push(value);
+        });
+    });
+
+    return processedData;
+}
         /**
            Konwertuje przetworzone dane do pliku JSON i pobiera go na komputer.
            jsonTable - Tablica przetworzonych danych.
